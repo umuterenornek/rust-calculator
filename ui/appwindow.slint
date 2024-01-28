@@ -1,0 +1,166 @@
+import { Button, VerticalBox, GridBox } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    in-out property<string> result: "0";
+    callback request-calculate();
+    callback request-append-to-result(string);
+    callback request-remove-last-char();
+    callback request-clear();
+    title: "Calculator";
+    min-height: 650px;
+    min-width: 450px;
+    default-font-size: 30px;
+    default-font-family: "Sans";
+
+    VerticalBox {
+        Rectangle {
+            border-width: 2px;
+            border-color: darkgrey;
+            clip: true;
+            height: 150px;
+            HorizontalLayout {
+                alignment: end;
+                padding: 10px;
+                Text {
+                    horizontal-alignment: right;
+                    vertical-alignment: center;
+                    text: "\{root.result}";
+                    font-size: 50px;
+                }
+            }
+        }
+        GridLayout {
+            spacing: 5px;
+            Row {
+                Button {
+                    text: "C";
+                    clicked => {
+                        root.request-clear();
+                    }
+                }
+                Button {
+                    text: "←";
+                    clicked => {
+                        root.request-remove-last-char();
+                    }
+                }
+                Button {
+                    text: ".";
+                    clicked => {
+                        root.request-append-to-result(".");
+                    }
+                }
+                Button {
+                    text: "/";
+                    clicked => {
+                        root.request-append-to-result("/");
+                    }
+                }
+            }
+            Row {
+                Button {
+                    text: 7;
+                    clicked => {
+                        root.request-append-to-result("7");
+                    }
+                }
+                Button {
+                    text: 8;
+                    clicked => {
+                        root.request-append-to-result("8");
+                    }
+                }
+                Button {
+                    text: 9;
+                    clicked => {
+                        root.request-append-to-result("9");
+                    }
+                }
+                Button {
+                    text: "*";
+                    clicked => {
+                        root.request-append-to-result("*");
+                    }
+                }
+            }
+            Row {
+                Button {
+                    text: 4;
+                    clicked => {
+                        root.request-append-to-result("4");
+                    }
+                }
+                Button {
+                    text: 5;
+                    clicked => {
+                        root.request-append-to-result("5");
+                    }
+                }
+                Button {
+                    text: 6;
+                    clicked => {
+                        root.request-append-to-result("6");
+                    }
+                }
+                Button {
+                    text: "-";
+                    clicked => {
+                        root.request-append-to-result("-");
+                    }
+                }
+            }
+            Row {
+                Button {
+                    text: 1;
+                    clicked => {
+                        root.request-append-to-result("1");
+                    }
+                }
+                Button {
+                    text: 2;
+                    clicked => {
+                        root.request-append-to-result("2");
+                    }
+                }
+                Button {
+                    text: 3;
+                    clicked => {
+                        root.request-append-to-result("3");
+                    }
+                }
+                Button {
+                    text: "+";
+                    clicked => {
+                        root.request-append-to-result("+");
+                    }
+                }
+            }
+            Row {
+                Button {
+                    text: 0;
+                    clicked => {
+                        root.request-append-to-result("0");
+                    }
+                }
+                Button {
+                    text: "(";
+                    clicked => {
+                        root.request-append-to-result("(");
+                    }
+                }
+                Button {
+                    text: ")";
+                    clicked => {
+                        root.request-append-to-result(")");
+                    }
+                }
+                Button {
+                    text: "=";
+                    clicked => {
+                        root.request-calculate();
+                    }
+                }
+            }
+        }
+    }
+}
