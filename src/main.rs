@@ -172,22 +172,6 @@ fn check_parentheses(input: String) -> bool {
     stack.is_empty()
 }
 
-fn check_requires_parentheses(input: String) -> bool {
-    let mut stack: Vec<char> = vec![];
-    for c in input.chars() {
-        if c == '(' {
-            stack.push(c);
-        }
-        if c == ')' {
-            if stack.is_empty() {
-                return false;
-            }
-            stack.pop();
-        }
-    }
-    !stack.is_empty()
-}
-
 fn check_result_validity(result: String) -> bool {
     let last_char_of_result = result.chars().rev().next().unwrap();
     check_parentheses(result.clone()) && result != "inf" && result != "-inf" && result != "NaN" && !is_operator(last_char_of_result) && last_char_of_result != '('
@@ -241,7 +225,7 @@ fn main() -> Result<(), slint::PlatformError> {
                     return;
                 }
                 (_, ')') => {
-                    if is_operator(last_char_of_result) || last_char_of_result == '(' || last_char_of_result == '.' || !check_requires_parentheses(result.clone()) {
+                    if is_operator(last_char_of_result) || last_char_of_result == '(' || last_char_of_result == '.' || check_parentheses(result.clone()) {
                         return;
                     }
                 }
