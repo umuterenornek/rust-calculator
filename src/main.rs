@@ -262,6 +262,10 @@ fn main() -> Result<(), slint::PlatformError> {
                 return;
             }
             let result = calculate_result(result);
+            if result.fract() == 0.0 {
+                ui.set_result(result.to_string().into());
+                return;
+            }
             ui.set_result(format!("{:.5}", result).into());
         }
     });
