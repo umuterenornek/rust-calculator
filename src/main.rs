@@ -174,7 +174,7 @@ fn check_parentheses(input: String) -> bool {
 
 fn check_result_validity(result: String) -> bool {
     let last_char_of_result = result.chars().rev().next().unwrap();
-    check_parentheses(result.clone()) && result != "inf" && result != "-inf" && result != "NaN" && !is_operator(last_char_of_result) && last_char_of_result != '('
+    check_parentheses(result.clone()) && result != "inf" && result != "-inf" && result != "NaN" && !is_operator(last_char_of_result)
 }
 
 fn check_dot_acceptable(result: String) -> bool {
@@ -262,7 +262,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 return;
             }
             let result = calculate_result(result);
-            ui.set_result(result.to_string().into());
+            ui.set_result(format!("{:.5}", result).into());
         }
     });
 
