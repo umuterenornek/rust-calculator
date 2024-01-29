@@ -218,23 +218,11 @@ fn main() -> Result<(), slint::PlatformError> {
                     ui.set_result(text.into());
                     return;
                 }
-                (_, _) if text.is_digit(10) && last_char_of_result == ')' => {
-                    return;
-                }
                 (_, '.') if !last_char_of_result.is_digit(10) || !check_dot_acceptable(result.clone()) => {
                     return;
                 }
                 (_, ')') => {
                     if is_operator(last_char_of_result) || last_char_of_result == '(' || last_char_of_result == '.' || check_parentheses(result.clone()) {
-                        return;
-                    }
-                }
-                (_, _) if is_operator(text) => {
-                    if last_char_of_result == '(' || last_char_of_result == '.' {
-                        return;
-                    }
-                    if is_operator(last_char_of_result) {
-                        ui.set_result(format!("{}{}", result[..result.len() - 1].to_string(), text).into());
                         return;
                     }
                 }
@@ -245,6 +233,18 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
                 ("inf" | "-inf" | "NaN", _) => {
                     ui.set_result(text.into());
+                    return;
+                }
+                (_, _) if is_operator(text) => {
+                    if last_char_of_result == '(' || last_char_of_result == '.' {
+                        return;
+                    }
+                    if is_operator(last_char_of_result) {
+                        ui.set_result(format!("{}{}", result[..result.len() - 1].to_string(), text).into());
+                        return;
+                    }
+                }
+                (_, _) if text.is_digit(10) && last_char_of_result == ')' => {
                     return;
                 }
                 _ => {}
